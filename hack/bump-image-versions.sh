@@ -46,5 +46,5 @@ fi
 
 for image in $images; do
     latest=$(skopeo list-tags --retry-times 3 docker://registry.k8s.io/sig-storage/"$image" | jq -r '.Tags[]' | grep -e '^v.*$' | sort -V | tail -n 1)
-    find deploy -type f -exec sed -i '' "s;\(image: registry.k8s.io/sig-storage/$image:\).*;\1$latest;" {} \;
+    find deploy -type f -exec sed -i "s;\(image: registry.k8s.io/sig-storage/$image:\).*;\1$latest;" {} \;
 done
